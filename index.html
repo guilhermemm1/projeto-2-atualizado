@@ -82,37 +82,39 @@
     </div>
 
     <script>
-        // Recupera votos do Local Storage ao carregar a página
-        let votes = JSON.parse(localStorage.getItem("votes")) || { A: 0, B: 0 };
-        updateVotes();
+// Recupera votos do Local Storage ao carregar a página
+let votes = JSON.parse(localStorage.getItem("votes")) || { A: 0, B: 0 }; // Obtém os votos salvos ou inicia com zero
+updateVotes(); // Atualiza a exibição inicial dos votos
 
-        function vote(option) {
-            votes[option]++;
-            localStorage.setItem("votes", JSON.stringify(votes)); // Salva no Local Storage
-            updateVotes();
-            checkTechnicalTie();
-        }
+function vote(option) {
+    votes[option]++; // Incrementa a quantidade de votos na opção escolhida
+    localStorage.setItem("votes", JSON.stringify(votes)); // Salva os votos atualizados no Local Storage
+    updateVotes(); // Atualiza os números mostrados na tela
+    checkTechnicalTie(); // Verifica se há um empate técnico
+}
 
-        function updateVotes() {
-            document.getElementById("votesA").innerText = votes.A;
-            document.getElementById("votesB").innerText = votes.B;
-        }
+function updateVotes() {
+    // Atualiza a interface com os valores atuais de votos
+    document.getElementById("votesA").innerText = votes.A;
+    document.getElementById("votesB").innerText = votes.B;
+}
 
-        function checkTechnicalTie() {
-            let diff = Math.abs(votes.A - votes.B);
-            if (diff <= 2) { 
-                document.getElementById("technicalTie").classList.remove("hidden");
-            } else {
-                document.getElementById("technicalTie").classList.add("hidden");
-            }
-        }
+function checkTechnicalTie() {
+    let diff = Math.abs(votes.A - votes.B); // Calcula a diferença entre os votos
+    if (diff <= 2) { // Se a diferença for menor ou igual a 2, indica empate técnico
+        document.getElementById("technicalTie").classList.remove("hidden"); // Mostra a mensagem de empate técnico
+    } else {
+        document.getElementById("technicalTie").classList.add("hidden"); // Esconde a mensagem se não houver empate
+    }
+}
 
-        function resetVotes() {
-            votes = { A: 0, B: 0 };
-            localStorage.setItem("votes", JSON.stringify(votes));
-            updateVotes();
-            document.getElementById("technicalTie").classList.add("hidden");
-        }
+function resetVotes() {
+    votes = { A: 0, B: 0 }; // Zera os votos
+    localStorage.setItem("votes", JSON.stringify(votes)); // Salva os votos zerados no Local Storage
+    updateVotes(); // Atualiza os números mostrados na tela
+    document.getElementById("technicalTie").classList.add("hidden"); // Garante que a mensagem de empate técnico esteja escondida
+}
+
     </script>
 </body>
 </html>
