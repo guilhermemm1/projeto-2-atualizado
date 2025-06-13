@@ -10,7 +10,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
-            background: linear-gradient(to right, #1C1C3A, #3C64B1);
+            background: linear-gradient(to right, #1C1C3A, #264b8f);
             color: white;
             margin: 0;
             padding: 0;
@@ -19,7 +19,7 @@
             max-width: 500px;
             margin: 50px auto;
             padding: 30px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(78, 171, 213, 0.9);
             color: black;
             border-radius: 15px;
             box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
@@ -29,7 +29,7 @@
             font-weight: 600;
         }
         button {
-            background: #1d2e4e;
+            background: #101318;
             color: white;
             padding: 12px 25px;
             margin: 15px;
@@ -82,39 +82,37 @@
     </div>
 
     <script>
-// Recupera votos do Local Storage ao carregar a página
-let votes = JSON.parse(localStorage.getItem("votes")) || { A: 0, B: 0 }; // Obtém os votos salvos ou inicia com zero
-updateVotes(); // Atualiza a exibição inicial dos votos
+        // Recupera votos do Local Storage ao carregar a página
+        let votes = JSON.parse(localStorage.getItem("votes")) || { A: 0, B: 0 };
+        updateVotes();
 
-function vote(option) {
-    votes[option]++; // Incrementa a quantidade de votos na opção escolhida
-    localStorage.setItem("votes", JSON.stringify(votes)); // Salva os votos atualizados no Local Storage
-    updateVotes(); // Atualiza os números mostrados na tela
-    checkTechnicalTie(); // Verifica se há um empate técnico
-}
+        function vote(option) {
+            votes[option]++;
+            localStorage.setItem("votes", JSON.stringify(votes)); // Salva no Local Storage
+            updateVotes();
+            checkTechnicalTie();
+        }
 
-function updateVotes() {
-    // Atualiza a interface com os valores atuais de votos
-    document.getElementById("votesA").innerText = votes.A;
-    document.getElementById("votesB").innerText = votes.B;
-}
+        function updateVotes() {
+            document.getElementById("votesA").innerText = votes.A;
+            document.getElementById("votesB").innerText = votes.B;
+        }
 
-function checkTechnicalTie() {
-    let diff = Math.abs(votes.A - votes.B); // Calcula a diferença entre os votos
-    if (diff <= 2) { // Se a diferença for menor ou igual a 2, indica empate técnico
-        document.getElementById("technicalTie").classList.remove("hidden"); // Mostra a mensagem de empate técnico
-    } else {
-        document.getElementById("technicalTie").classList.add("hidden"); // Esconde a mensagem se não houver empate
-    }
-}
+        function checkTechnicalTie() {
+            let diff = Math.abs(votes.A - votes.B);
+            if (diff <= 2) { 
+                document.getElementById("technicalTie").classList.remove("hidden");
+            } else {
+                document.getElementById("technicalTie").classList.add("hidden");
+            }
+        }
 
-function resetVotes() {
-    votes = { A: 0, B: 0 }; // Zera os votos
-    localStorage.setItem("votes", JSON.stringify(votes)); // Salva os votos zerados no Local Storage
-    updateVotes(); // Atualiza os números mostrados na tela
-    document.getElementById("technicalTie").classList.add("hidden"); // Garante que a mensagem de empate técnico esteja escondida
-}
-
+        function resetVotes() {
+            votes = { A: 0, B: 0 };
+            localStorage.setItem("votes", JSON.stringify(votes));
+            updateVotes();
+            document.getElementById("technicalTie").classList.add("hidden");
+        }
     </script>
 </body>
 </html>
